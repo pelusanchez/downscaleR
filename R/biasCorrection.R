@@ -1258,7 +1258,9 @@ dqm <- function(o, p, s, precip, pr.threshold, n.quantiles, detrend=TRUE){
             }
             
             if(detrend){
-                  s.mn <- lm.fit(cbind(1, seq_along(s)), s)$fitted
+              s.mn <- rep(NA, length(s))
+              ind.noNA <- which(!is.na(s))
+              s.mn[ind.noNA] <- lm.fit(cbind(1, seq_along(ind.noNA)), s[ind.noNA])$fitted
             } else{
                   s.mn <- o.mn
             }
